@@ -87,9 +87,7 @@ contract XENFT is IXENTorrent, IXENProxying, ERC721("XENFT", "XENFT") {
     /**
         @dev decodes MintInfo record and extracts all of its props
      */
-    function decodeMintInfo(uint256 info)
-        public
-        pure
+    function decodeMintInfo(uint256 info) public pure
         returns (
             uint256 term,
             uint256 maturityTs,

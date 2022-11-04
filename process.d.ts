@@ -6,6 +6,8 @@ declare module "process" {
         INFURA_API_KEY: string;
         ETHERSCAN_API_KEY: string;
         DEPLOYER_PRIVKEY: string;
+        CONTRACT_MATH_LIBRARY_ADDRESS: string;
+        CONTRACT_XEN_TOKEN_ADDRESS: string;
       }
     }
   }
