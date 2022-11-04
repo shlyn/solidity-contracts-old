@@ -11,3 +11,12 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat run scripts/deploy.ts
 ```
+**Binance test network**
+- WNBN
+```
+0x93bd653a98957a39fb4bbfd386afa0dfadde8ff8
+```
+- USDT
+```
+0x51dd5cc9bfa11a9b04698f7620f196dfb1d16da0
+```
