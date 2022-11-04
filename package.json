@@ -25,6 +25,10 @@
     "url": "https://github.com/shlyn/solidity-contracts/issues"
   },
   "homepage": "https://github.com/shlyn/solidity-contracts#readme",
+  "dependencies": {
+    "@faircrypto/xen-crypto": "^0.3.2",
+    "@openzeppelin/contracts": "^4.7.3"
+  },
   "devDependencies": {
     "@commitlint/cli": "^17.2.0",
     "@commitlint/config-conventional": "^17.2.0",
