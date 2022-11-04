@@ -1,0 +1,37 @@
+{
+  "name": "solidity-contracts",
+  "version": "1.0.0",
+  "description": "blockchain contracts implements with solidity language and hardhat framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx hardhat test",
+    "linter": "npx solhint contracts/**/*.sol",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shlyn/solidity-contracts.git"
+  },
+  "keywords": [
+    "smart",
+    "contract",
+    "ethereum",
+    "hardhat",
+    "solidity"
+  ],
+  "author": "shlyn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shlyn/solidity-contracts/issues"
+  },
+  "homepage": "https://github.com/shlyn/solidity-contracts#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^17.2.0",
+    "@commitlint/config-conventional": "^17.2.0",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
+    "hardhat": "^2.12.2",
+    "husky": "^8.0.1",
+    "solhint": "^3.3.7"
+  },
+  "prepare": "husky install"
+}
