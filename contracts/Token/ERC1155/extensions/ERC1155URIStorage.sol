@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../../../utils/Strings.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 import "../ERC1155.sol";
 
 /**

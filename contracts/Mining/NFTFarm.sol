@@ -1,10 +1,12 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.1 (utils/introspection/ERC165.sol)
 pragma solidity 0.8.17;
 
+import "../Token/ERC721/ERC721.sol";
+
 contract NFTFarm {
-    function stakeNFT() external {
-        //
+    function stakeNFT721(address contractAddress, uint256 tokenId) external {
+        IERC721 nftContract = IERC721(contractAddress);
+        nftContract.safeTransferFrom(msg.sender, address(this), tokenId);
     }
 
     function withdraw() external {

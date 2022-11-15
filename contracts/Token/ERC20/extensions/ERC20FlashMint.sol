@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.0;
 
-import "../../../interfaces/IERC3156FlashBorrower.sol";
-import "../../../interfaces/IERC3156FlashLender.sol";
+import "@openzeppelin/contracts/interfaces/IERC3156FlashBorrower.sol";
+import "@openzeppelin/contracts/interfaces/IERC3156FlashLender.sol";
 import "../ERC20.sol";
 
 /**

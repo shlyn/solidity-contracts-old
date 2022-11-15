@@ -4,8 +4,8 @@
 pragma solidity ^0.8.0;
 
 import "../ERC721.sol";
-import "../../common/ERC2981.sol";
-import "../../../utils/introspection/ERC165.sol";
+import "@openzeppelin/contracts/token/common/ERC2981.sol";
+import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 
 /**
  * @dev Extension of ERC721 with the ERC2981 NFT Royalty Standard, a standardized way to retrieve royalty payment
