@@ -10,7 +10,7 @@ async function main() {
     } else if (network == 'dashboard') {
         const Contract = await ethers.getContractFactory("XenBatchMint");
 
-        const contract = await Contract.deploy(process.env.CONTRACT_XEN_TOKEN_ADDRESS);
+        const contract = await Contract.deploy("");
         await contract.deployed();
 
         console.log(`Contract deployed to ${contract.address}`);

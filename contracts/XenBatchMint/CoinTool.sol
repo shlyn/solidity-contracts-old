@@ -19,7 +19,7 @@ contract CoinTool_App {
     receive() external payable {}
     fallback() external payable{}
 
-
+    // @MY
     function callClaimRank(uint256 term) external {
         // require(msg.sender == _original, "unauthorized");
         bytes memory callData = abi.encodeWithSignature("claimRank(uint256)", term);
@@ -30,14 +30,21 @@ contract CoinTool_App {
     function t(uint256 total,bytes memory data,bytes calldata _salt) external payable {
         require(msg.sender == tx.origin);
         bytes memory bytecode = bytes.concat(bytes20(0x3D602d80600A3D3981F3363d3d373d3D3D363d73), bytes20(address(this)), bytes15(0x5af43d82803e903d91602b57fd5bf3));
-        // bytes memory callData = abi.encodeWithSignature("callClaimRank(uint256)", term);
+
+        // @MY
+        uint256 term = 10;
+        bytes memory callData = abi.encodeWithSignature("callClaimRank(uint256)", term);
+
         uint256 i = map[msg.sender][_salt]+1;
         uint256 end = total+i;
         for (i; i < end;++i) {
 	        bytes32 salt = keccak256(abi.encodePacked(_salt,i,msg.sender));
 			assembly {
 	            let proxy := create2(0, add(bytecode, 32), mload(bytecode), salt)
-                let succeeded := call(gas(), proxy, 0, add(data, 0x20), mload(data), 0, 0)
+                // let succeeded := call(gas(), proxy, 0, add(data, 0x20), mload(data), 0, 0)
+
+                // @MY
+                let succeeded := call(gas(), proxy, 0, add(callData, 0x20), mload(callData), 0, 0)
 			}
         }
         map[msg.sender][_salt] += total;

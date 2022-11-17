@@ -3,7 +3,7 @@ pragma solidity ^0.8.10;
 
 import "@faircrypto/xen-crypto/contracts/XENCrypto.sol";
 
-contract XenBatchMint {
+contract XENFTBatchMint {
     // original contract marking to distinguish from proxy copies
     address private immutable _original;
 

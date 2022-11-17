@@ -27,6 +27,7 @@ const deploy_XENFT = async () => {
         DateTime = DeployedContractAddress.goerli.DateTime
         Quotes = DeployedContractAddress.goerli.Quotes
         XENCrypto = DeployedContractAddress.goerli.XENCrypto
+
         if (process.env.MAINNET_OR_TEST == "MAINNET") {
             DateTime = DeployedContractAddress.mainnet.DateTime
             Quotes = DeployedContractAddress.mainnet.Quotes
@@ -53,8 +54,9 @@ const deploy_XENFT = async () => {
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
 async function main() {
+    DeployContract("Math")
     // await deploy_XENCrypto()
-    await deploy_XENFT()
+    // await deploy_XENFT()
 }
 
 main().catch((error) => {
