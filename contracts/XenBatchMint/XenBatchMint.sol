@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
-interface IXEN {
+interface IXENCrypto {
 	function claimRank(uint term) external;
 	function claimMintReward() external;
 	function claimMintRewardAndShare(address other, uint256 pct) external;
@@ -9,27 +9,28 @@ interface IXEN {
     function balanceOf(address account) external view returns (uint256);
 }
 
-interface IMiniProxy {
+interface IXENCryptoMiniProxy {
     function claimRank(uint term) external;
     function claimMintRewardTo(address to) external;
 }
 
 // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1167.md
-contract XenMiniProxy is IMiniProxy {
+contract XENCryptoMiniProxy is IXENCryptoMiniProxy {
     address private original;
-    // address public constant xenContractAddress = 0x06450dEe7FD2Fb8E39061434BAbCFC05599a6Fb8;
-    address public constant xenContractAddress = 0xbF7ca444683cd4779E939898371d2249eD97dE63;
+    // address public constant xenContractAddress = 0xDd68332Fe8099c0CF3619cB3Bb0D8159EF1eCc93;
+    address public XENCrypto;
 
-    constructor() {
+    constructor(address _XENCrypto) {
         original = msg.sender;
+		XENCrypto = _XENCrypto;	
     }
 
 	function claimRank(uint term) external {
-		IXEN(xenContractAddress).claimRank(term);
+		IXENCrypto(XENCrypto).claimRank(term);
 	}
 
 	function claimMintRewardTo(address to) external {
-		IXEN(xenContractAddress).claimMintRewardAndShare(to, 100);
+		IXENCrypto(XENCrypto).claimMintRewardAndShare(to, 100);
 		if(address(this) != original) {
 			selfdestruct(payable(tx.origin)); // proxy delegatecall
 		}
@@ -37,7 +38,7 @@ contract XenMiniProxy is IMiniProxy {
 }
 
 contract XenBatchMint {
-	bytes miniProxy; // = 0x363d3d373d3d3d363d73bebebebebebebebebebebebebebebebebebebebe5af43d82803e903d91602b57fd5bf3;
+	bytes miniProxy; // 0x363d3d373d3d3d363d73bebebebebebebebebebebebebebebebebebebebe5af43d82803e903d91602b57fd5bf3;
 	address private immutable deployer;
 
 	mapping (address=>uint) public countClaimRank;
@@ -55,18 +56,29 @@ contract XenBatchMint {
 	function batchMint(uint times, uint term) external {
 		bytes memory bytecode = miniProxy;
 		address proxy;
-		uint N = countClaimRank[msg.sender];
+		uint N = countClaimRank[msg.sender] + 1;
 		for(uint i = N; i < N + times; i++) {
 	        bytes32 salt = keccak256(abi.encodePacked(msg.sender, i));
 			assembly {
 	            proxy := create2(0, add(bytecode, 32), mload(bytecode), salt)
 			}
-			IMiniProxy(proxy).claimRank(term);
+			IXENCryptoMiniProxy(proxy).claimRank(term);
 		}
-		countClaimRank[msg.sender] = N + times;
+		countClaimRank[msg.sender] += times;
 	}
 
-    function proxyFor(address sender, uint i) public view returns (address proxy) {
+	function batchClaimWithXenContract(uint times) external {
+		uint N = countClaimRank[msg.sender];
+		uint M = countClaimMint[msg.sender];
+		N = M + times < N ? M + times : N;
+		for(uint i = M + 1; i < N + 1; i++) {
+	        address proxy = proxyFor(msg.sender, i);
+			IXENCryptoMiniProxy(proxy).claimMintRewardTo(msg.sender);
+		}
+		countClaimMint[msg.sender] = N;
+	}
+
+    function proxyFor(address sender, uint i) private view returns (address proxy) {
         bytes32 salt = keccak256(abi.encodePacked(sender, i));
         proxy = address(uint160(uint(keccak256(abi.encodePacked(
                 hex'ff',
@@ -75,15 +87,4 @@ contract XenBatchMint {
                 keccak256(abi.encodePacked(miniProxy))
             )))));
     }
-
-	function batchClaimWithXenContract(uint times) external {
-		uint N = countClaimRank[msg.sender];
-		uint M = countClaimMint[msg.sender];
-		N = M + times < N ? M + times : N;
-		for(uint i = M; i < N; i++) {
-	        address proxy = proxyFor(msg.sender, i);
-			IMiniProxy(proxy).claimMintRewardTo(msg.sender);
-		}
-		countClaimMint[msg.sender] = N;
-	}
 }
