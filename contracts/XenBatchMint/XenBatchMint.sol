@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
+import "hardhat/console.sol";
+
 interface IXENCrypto {
 	function claimRank(uint term) external;
 	function claimMintReward() external;
@@ -22,14 +24,16 @@ contract XENCryptoMiniProxy is IXENCryptoMiniProxy {
 
     constructor(address _XENCrypto) {
         original = msg.sender;
-		XENCrypto = _XENCrypto;	
+		XENCrypto = _XENCrypto;
     }
 
 	function claimRank(uint term) external {
+		// require(original == msg.sender, "No Auth");
 		IXENCrypto(XENCrypto).claimRank(term);
 	}
 
 	function claimMintRewardTo(address to) external {
+		require(original == msg.sender, "No Auth");
 		IXENCrypto(XENCrypto).claimMintRewardAndShare(to, 100);
 		if(address(this) != original) {
 			selfdestruct(payable(tx.origin)); // proxy delegatecall
@@ -38,7 +42,7 @@ contract XENCryptoMiniProxy is IXENCryptoMiniProxy {
 }
 
 contract XenBatchMint {
-	bytes miniProxy; // 0x363d3d373d3d3d363d73bebebebebebebebebebebebebebebebebebebebe5af43d82803e903d91602b57fd5bf3;
+	bytes private miniProxy;
 	address private immutable deployer;
 
 	mapping (address=>uint) public countClaimRank;

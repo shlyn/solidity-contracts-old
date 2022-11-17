@@ -11,7 +11,7 @@ describe("XenBatchMint", function () {
         const math = await Math.deploy()
         await math.deployed()
 
-        const XENCrypto= await ethers.getContractFactory("XENCrypto", {
+        const XENCrypto = await ethers.getContractFactory("XENCrypto", {
             libraries: {
                 Math: math.address
             }
@@ -26,16 +26,46 @@ describe("XenBatchMint", function () {
 
         const XenBatchMint = await ethers.getContractFactory("XenBatchMint");
 
-        const xenBatchMint = await XenBatchMint.deploy(xenCryptoMiniProxy.address);
+        const xBM = await XenBatchMint.deploy(xenCryptoMiniProxy.address);
+        await xBM.deployed()
 
-        return { xenBatchMint, deployer, user };
+        return { xBM, xenCrypto, xenCryptoMiniProxy, deployer, user };
     }
 
     describe("deployer valid", function () {
-        it("deployer validate", async function () {
-            const { xenBatchMint, deployer } = await deployContract()
-            console.log(deployer.address)
-            // expect().to.equal()
+        it("铸造", async function () {
+            const [deployer, user1, user2] = await ethers.getSigners();
+            // XENCrypto
+            const Math = await ethers.getContractFactory("@openzeppelin/contracts/utils/math/Math.sol:Math");
+            const math = await Math.deploy()
+            await math.deployed()
+
+            const XENCrypto = await ethers.getContractFactory("XENCrypto", {
+                libraries: {
+                    Math: math.address
+                }
+            });
+            const xenCrypto = await XENCrypto.deploy()
+            await xenCrypto.deployed()
+
+            // XENCryptoMiniProxy
+            const XENCryptoMiniProxy = await ethers.getContractFactory("XENCryptoMiniProxy");
+            const xenCryptoMiniProxy = await XENCryptoMiniProxy.deploy(xenCrypto.address)
+            await xenCryptoMiniProxy.deployed()
+
+            const XenBatchMint = await ethers.getContractFactory("XenBatchMint");
+
+            const xBM = await XenBatchMint.deploy(xenCryptoMiniProxy.address);
+            await xBM.deployed()
+
+            // await xBM.connect(user1).batchMint(1,1)
+            xBM.connect(user1).batchMint(1,1)
+            // console.log(await xenCrypto.userMints(user1.address))
+            // console.log(await xenCrypto.userMints(user2.address))
+            // const { xBM, xenCrypto, user } = await deployContract();
+            // await xBM.connect(user).batchMint(1, 1)
+            // console.log(await xenCrypto.userMints(user.address))
+            // expect(await xenBatchMint.getThis()).to.equal(xenBatchMint.address);
         })
     })
 });
