@@ -50,7 +50,7 @@ const deploy_XENFT = async () => {
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
 async function main() {
-    // await deploy_XENCrypto()
+    await deploy_XENCrypto()
     // await deploy_XENFT()
 }
 

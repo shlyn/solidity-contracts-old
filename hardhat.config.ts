@@ -7,10 +7,16 @@ dotenv.config()
 const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
   networks: {
-    hardhat: {},
+    hardhat: {
+      // forking: {
+      //   url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.API_KEY_ALCHEMY}`
+      // },
+      allowUnlimitedContractSize: true
+    },
     dashboard: {
       url: "http://localhost:24012/rpc",
-      timeout: 400000
+      timeout: 56000,
+      allowUnlimitedContractSize: true
     }
   },
   solidity: {
@@ -38,8 +44,8 @@ const config: HardhatUserConfig = {
         settings: {
           optimizer: {
             enabled: true,
-            runs: 200,
-          }
+            runs: 200
+          },
         }
       },
       {

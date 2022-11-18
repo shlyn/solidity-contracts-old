@@ -26,13 +26,13 @@
   },
   "homepage": "https://github.com/shlyn/solidity-contracts#readme",
   "dependencies": {
-    "@faircrypto/xen-crypto": "^0.3.2",
     "@openzeppelin/contracts": "^4.7.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.2.0",
     "@commitlint/config-conventional": "^17.2.0",
     "@nomicfoundation/hardhat-toolbox": "^2.0.0",
+    "abdk-libraries-solidity": "^3.0.0",
     "dotenv": "^16.0.3",
     "dotenv-expand": "^9.0.0",
     "ethers": "^5.7.2",

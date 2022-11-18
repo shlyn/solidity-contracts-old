@@ -4,7 +4,7 @@ pragma solidity ^0.8.10;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
-import "@faircrypto/xen-crypto/contracts/XENCrypto.sol";
+import "../XEN-crypto/XENCrypto.sol";
 import "./libs/SVG.sol";
 import "./libs/DateTime.sol";
 import "./interfaces/IXENTorrent.sol";
