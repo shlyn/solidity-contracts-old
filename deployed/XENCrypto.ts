@@ -1,4 +1,4 @@
-import * as  artifacts from "../artifacts/contracts/open_sources/XEN-crypto/XENCrypto.sol/XENCrypto.json"
+import * as  artifacts from "../artifacts/contracts/open/XEN-crypto/XENCrypto.sol/XENCrypto.json"
 import { Contract } from 'ethers'
 import { provider, wallet } from './utils'
 import { DeployedContractAddress } from '../config'

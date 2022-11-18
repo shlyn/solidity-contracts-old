@@ -7,7 +7,7 @@ const deploy_XENCryptoMiniProxy = async () => {
         throw "Error: Check the network set."
     }
     const XENCrypto = process.env.MAINNET_OR_TEST == "TEST" ?
-            DeployedContractAddress.goerli.XENCrypto:
+            DeployedContractAddress.goerli.XENCrypto :
             DeployedContractAddress.mainnet.XENCrypto
     
     const XENCryptoMiniProxy = await ethers.getContractFactory("XENCryptoMiniProxy")
@@ -17,25 +17,23 @@ const deploy_XENCryptoMiniProxy = async () => {
     return xenCryptoMiniProxy.address
 }
 
-const _XENCryptoMiniProxy = "0x53c0D55fF498436d6c1b5C281678483E0EB26495"
+const _XENCryptoMiniProxy = "0x32A42a40504569A5B94a740Aeaa87d4B54dab895"
 
-const deploy_XenBatchMint = async () => {
+const deploy_XenAssistant = async () => {
     if (network != "dashboard") {
         throw "Error: Check the network set."
     }
     
-    const XenBatchMint = await ethers.getContractFactory("XenBatchMint")
+    const XenBatchMint = await ethers.getContractFactory("XenAssistant")
     const xenBatchMint = await XenBatchMint.deploy(_XENCryptoMiniProxy)
     await xenBatchMint.deployed()
 
     console.log(`XenBatchMint be deployed to ${xenBatchMint.address}`);
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
 async function main() {
-    // await deploy_XENCryptoMiniProxy() // 0x53c0D55fF498436d6c1b5C281678483E0EB26495
-    // await deploy_XenBatchMint() // 0x41e358454D99DE351Bdf0D57bF91A62c4bd79803
+    // await deploy_XENCryptoMiniProxy()
+    // await deploy_XenAssistant() // 0xAe88a614733Db391CaA8DB63e10c853a2A6c46F2
 }
 
 main().catch((error) => {

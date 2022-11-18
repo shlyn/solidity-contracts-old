@@ -41,7 +41,7 @@ contract XENCryptoMiniProxy is IXENCryptoMiniProxy {
 	}
 }
 
-contract XenBatchMint {
+contract XenAssistant {
 	bytes miniProxy;
 	address private immutable deployer;
 

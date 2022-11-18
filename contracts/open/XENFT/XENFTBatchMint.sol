@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import "../open_sources/XEN-crypto/XENCrypto.sol";
+import "../XEN-crypto/XENCrypto.sol";
 
 contract XENFTBatchMint {
     // original contract marking to distinguish from proxy copies
