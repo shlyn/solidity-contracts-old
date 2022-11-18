@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { ethers } from "hardhat";
 import { time, loadFixture } from "@nomicfoundation/hardhat-network-helpers";
 
-describe("XenBatchMint", function () {
+describe("XenBatchMint Contract", function () {
     // Contracts are deployed using the first signer/account by default
     async function deployContract() {
         const [deployer, user] = await ethers.getSigners();
@@ -59,7 +59,7 @@ describe("XenBatchMint", function () {
             await xBM.deployed()
 
             // await xBM.connect(user1).batchMint(1,1)
-            xBM.connect(user1).batchMint(1,1)
+            await xBM.connect(user1).batchMint(1,1)
             // console.log(await xenCrypto.userMints(user1.address))
             // console.log(await xenCrypto.userMints(user2.address))
             // const { xBM, xenCrypto, user } = await deployContract();

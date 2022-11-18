@@ -4,7 +4,7 @@ pragma solidity ^0.8.17;
 import "hardhat/console.sol";
 
 interface IXENCrypto {
-	function claimRank(uint term) external;
+	function claimRank(uint256 term) external;
 	function claimMintReward() external;
 	function claimMintRewardAndShare(address other, uint256 pct) external;
     function transfer(address recipient, uint256 amount) external returns (bool);
@@ -12,7 +12,7 @@ interface IXENCrypto {
 }
 
 interface IXENCryptoMiniProxy {
-    function claimRank(uint term) external;
+    function claimRank(uint256 term) external;
     function claimMintRewardTo(address to) external;
 }
 
@@ -56,8 +56,6 @@ contract XenBatchMint {
         );
 		deployer = msg.sender;
 	}
-
-	receive() external payable {}
 
 	function batchMint(uint times, uint term) external {
 		bytes memory bytecode = miniProxy;
