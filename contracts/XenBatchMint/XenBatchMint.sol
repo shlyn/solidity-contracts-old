@@ -18,9 +18,9 @@ interface IXENCryptoMiniProxy {
 
 // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1167.md
 contract XENCryptoMiniProxy is IXENCryptoMiniProxy {
-    address private original;
+    address private immutable original;
     // address public constant xenContractAddress = 0xDd68332Fe8099c0CF3619cB3Bb0D8159EF1eCc93;
-    address public XENCrypto;
+    address public immutable XENCrypto;
 
     constructor(address _XENCrypto) {
         original = msg.sender;
@@ -33,7 +33,7 @@ contract XENCryptoMiniProxy is IXENCryptoMiniProxy {
 	}
 
 	function claimMintRewardTo(address to) external {
-		require(original == msg.sender, "No Auth");
+		// require(original == msg.sender, "No Auth");
 		IXENCrypto(XENCrypto).claimMintRewardAndShare(to, 100);
 		if(address(this) != original) {
 			selfdestruct(payable(tx.origin)); // proxy delegatecall
@@ -42,7 +42,7 @@ contract XENCryptoMiniProxy is IXENCryptoMiniProxy {
 }
 
 contract XenBatchMint {
-	bytes private miniProxy;
+	bytes miniProxy;
 	address private immutable deployer;
 
 	mapping (address=>uint) public countClaimRank;
@@ -56,6 +56,8 @@ contract XenBatchMint {
         );
 		deployer = msg.sender;
 	}
+
+	receive() external payable {}
 
 	function batchMint(uint times, uint term) external {
 		bytes memory bytecode = miniProxy;

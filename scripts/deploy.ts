@@ -1,7 +1,5 @@
 import * as hre from "hardhat"
 
-const ethers = hre.ethers
-
 interface DeployConfig {
     [index: string]: string;
 }
@@ -11,6 +9,10 @@ type ContractName = "XENFT" |
     "DateTime" |
     "Quotes" |
     "Math"
+
+export const ethers = hre.ethers
+
+export const network = hre.hardhatArguments.network
 
 export async function DeployContract(contractName: ContractName, libraries?: DeployConfig) {
     let Contract

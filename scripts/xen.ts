@@ -1,9 +1,5 @@
-import * as hre from "hardhat"
-import { DeployContract } from "./deploy"
+import { DeployContract, ethers, network } from "./deploy"
 import { DeployedContractAddress } from "../config"
-
-const ethers = hre.ethers
-const network = hre.hardhatArguments.network
 
 const deploy_XENCrypto = async () => {
     let mathLibrary = ""
@@ -54,7 +50,6 @@ const deploy_XENFT = async () => {
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
 async function main() {
-    DeployContract("Math")
     // await deploy_XENCrypto()
     // await deploy_XENFT()
 }
