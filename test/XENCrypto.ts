@@ -1,15 +1,27 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { time, loadFixture } from "@nomicfoundation/hardhat-network-helpers";
+import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
 import { BigNumber } from "ethers";
 
 describe("XENCrypto Contract Test:", function () {
+    before(async function () {
+        const [deployer, user1] = await ethers.getSigners();
+        console.log("the deployer", deployer.address)
+
+        const addr0 = ethers.utils.keccak256(ethers.utils.RLP.encode([deployer.address, BigNumber.from(0).toHexString()])).slice(-40)
+        const addr1 = ethers.utils.keccak256(ethers.utils.RLP.encode([deployer.address, BigNumber.from(1).toHexString()])).slice(-40)
+
+        console.log("calcute addr0", addr0)
+        console.log("calcute addr1", addr1)
+    })
+
     // XENCrypto deploy
     async function deployContract() {
         const [deployer, user1] = await ethers.getSigners();
+
         const Math = await ethers.getContractFactory("contracts/open/XEN-crypto/Math.sol:Math");
         const math = await Math.deploy()
-        await math.deployed()
+        console.log("Math library address: ", math.address)
 
         const XENCrypto = await ethers.getContractFactory("XENCrypto", {
             libraries: {
@@ -17,7 +29,8 @@ describe("XENCrypto Contract Test:", function () {
             }
         });
         const xenCrypto = await XENCrypto.deploy()
-        await xenCrypto.deployed()
+        console.log("xenCrypto ", xenCrypto.address)
+
         return { xenCrypto, deployer, user1 };
     }
 
