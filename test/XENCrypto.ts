@@ -8,11 +8,13 @@ describe("XENCrypto Contract Test:", function () {
         const [deployer, user1] = await ethers.getSigners();
         console.log("the deployer", deployer.address)
 
-        const addr0 = ethers.utils.keccak256(ethers.utils.RLP.encode([deployer.address, BigNumber.from(0).toHexString()])).slice(-40)
+        // const addr0 = ethers.utils.keccak256(ethers.utils.RLP.encode([deployer.address, BigNumber.from(0).toHexString()])).slice(-40)
+        const addr0 = ethers.utils.keccak256(ethers.utils.RLP.encode([deployer.address, []])).slice(-40)
         const addr1 = ethers.utils.keccak256(ethers.utils.RLP.encode([deployer.address, BigNumber.from(1).toHexString()])).slice(-40)
-
+        const addr2 = ethers.utils.keccak256(ethers.utils.RLP.encode([deployer.address, BigNumber.from(2).toHexString()])).slice(-40)
         console.log("calcute addr0", addr0)
         console.log("calcute addr1", addr1)
+        console.log("calcute addr2", addr2)
     })
 
     // XENCrypto deploy
@@ -22,6 +24,10 @@ describe("XENCrypto Contract Test:", function () {
         const Math = await ethers.getContractFactory("contracts/open/XEN-crypto/Math.sol:Math");
         const math = await Math.deploy()
         console.log("Math library address: ", math.address)
+
+        const Math2 = await ethers.getContractFactory("contracts/open/XEN-crypto/Math.sol:Math");
+        const math2 = await Math2.deploy()
+        console.log("Math library address: ", math2.address)
 
         const XENCrypto = await ethers.getContractFactory("XENCrypto", {
             libraries: {
