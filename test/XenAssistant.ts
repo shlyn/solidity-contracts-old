@@ -56,7 +56,7 @@ describe("XenAssistant Contract", function () {
     describe("ClaimRank: ", function () {
         it("batchMint 0 times with 1 day", async function () {
             const { xenAssistant, user1 }  = await loadFixture(deployContract)
-            // expect(await xenAssistant.connect(user1).batchMint(0,1)).to.reverted("Error: Illegal times")
+            expect(await xenAssistant.connect(user1).batchMint(0,1)).to.reverted("Error: Illegal times")
         })
 
         it("batchMint 1 times with 1 day", async function () {

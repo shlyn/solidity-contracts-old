@@ -16,26 +16,24 @@ interface IXENCryptoMiniProxy {
     function claimMintRewardTo(address to) external;
 }
 
-// https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1167.md
 contract XENCryptoMiniProxy is IXENCryptoMiniProxy {
-    address private immutable original;
-    // address public constant xenContractAddress = 0xDd68332Fe8099c0CF3619cB3Bb0D8159EF1eCc93;
-    address public immutable XENCrypto;
+    address public constant _XENCrypto = 0xDd68332Fe8099c0CF3619cB3Bb0D8159EF1eCc93;
+    address public constant _XenAssistant = 0xF3b60C1d342B964E5aBa270741AA56e2C22b47BC;
+	address private immutable _original;
 
-    constructor(address _XENCrypto) {
-        original = msg.sender;
-		XENCrypto = _XENCrypto;
-    }
+	constructor() {
+		_original = address(this);
+	}
 
 	function claimRank(uint term) external {
-		// require(original == msg.sender, "No Auth");
-		IXENCrypto(XENCrypto).claimRank(term);
+		require(msg.sender == _XenAssistant, "unauthorized");
+		IXENCrypto(_XENCrypto).claimRank(term);
 	}
 
 	function claimMintRewardTo(address to) external {
-		// require(original == msg.sender, "No Auth");
-		IXENCrypto(XENCrypto).claimMintRewardAndShare(to, 100);
-		if(address(this) != original) {
+		require(msg.sender == _XenAssistant, "unauthorized");
+		IXENCrypto(_XENCrypto).claimMintRewardAndShare(to, 100);
+		if(_original == address(0)) {
 			selfdestruct(payable(tx.origin)); // proxy delegatecall
 		}
 	}
