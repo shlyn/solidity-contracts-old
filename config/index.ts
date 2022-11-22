@@ -15,7 +15,10 @@ export const DeployedContractAddress = {
 
         CoinTool: "",
         MyCoinTool: "0xca7c25879997ed70841c9081b385859643b8bb9a",
-        XenAssistant: "0xAe88a614733Db391CaA8DB63e10c853a2A6c46F2"
+
+        // XenAssistant: "0xAe88a614733Db391CaA8DB63e10c853a2A6c46F2"
+        XenCryptoMiniProxy: "0xD848e91b6DB75E4C27Ae127Ac69d6082c7d3D3F8",
+        XenAssistant: "0xAE272C6Ea3FdB317BCA0e83A9CB169f0d0f1073E"
     },
     mainnet: {
         Math: "",

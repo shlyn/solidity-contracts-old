@@ -4,7 +4,8 @@ declare module "process" {
     namespace NodeJS {
       interface ProcessEnv extends Dict<string> {
         MAINNET_OR_TEST: "TEST" | "MAINNET";
-        PRIVEKEY: string;
+        DEPLOYER_PRIVEKEY: string;
+        TEST_PRIVEKEY: string;
 
         API_KEY_INFURA: string;
         API_KEY_ETHERESCAN: string;

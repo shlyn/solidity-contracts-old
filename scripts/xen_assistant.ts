@@ -3,21 +3,13 @@ import { DeployContract, ethers, network } from "./deploy"
 import { DeployedContractAddress } from "../config"
 
 const deploy_XENCryptoMiniProxy = async () => {
-    if (network != "dashboard") {
-        throw "Error: Check the network set."
-    }
-    const XENCrypto = process.env.MAINNET_OR_TEST == "TEST" ?
-            DeployedContractAddress.goerli.XENCrypto :
-            DeployedContractAddress.mainnet.XENCrypto
-    
     const XENCryptoMiniProxy = await ethers.getContractFactory("XENCryptoMiniProxy")
-    const xenCryptoMiniProxy = await XENCryptoMiniProxy.deploy(XENCrypto)
+    const xenCryptoMiniProxy = await XENCryptoMiniProxy.deploy()
     await xenCryptoMiniProxy.deployed()
     console.log(xenCryptoMiniProxy.address)
-    return xenCryptoMiniProxy.address
 }
 
-const _XENCryptoMiniProxy = "0x32A42a40504569A5B94a740Aeaa87d4B54dab895"
+const _XENCryptoMiniProxy = "0xD848e91b6DB75E4C27Ae127Ac69d6082c7d3D3F8"
 
 const deploy_XenAssistant = async () => {
     if (network != "dashboard") {
@@ -32,8 +24,8 @@ const deploy_XenAssistant = async () => {
 }
 
 async function main() {
-    // await deploy_XENCryptoMiniProxy()
-    // await deploy_XenAssistant() // 0xAe88a614733Db391CaA8DB63e10c853a2A6c46F2
+    // await deploy_XENCryptoMiniProxy() // 0xD848e91b6DB75E4C27Ae127Ac69d6082c7d3D3F8
+    await deploy_XenAssistant() // v1: 0xAe88a614733Db391CaA8DB63e10c853a2A6c46F2
 }
 
 main().catch((error) => {

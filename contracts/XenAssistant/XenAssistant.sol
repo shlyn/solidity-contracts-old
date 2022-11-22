@@ -18,7 +18,7 @@ interface IXENCryptoMiniProxy {
 
 contract XENCryptoMiniProxy is IXENCryptoMiniProxy {
     address public constant _XENCrypto = 0xDd68332Fe8099c0CF3619cB3Bb0D8159EF1eCc93;
-    address public constant _XenAssistant = 0xF3b60C1d342B964E5aBa270741AA56e2C22b47BC;
+    address public constant _XenAssistant = 0xAE272C6Ea3FdB317BCA0e83A9CB169f0d0f1073E;
 	address private immutable _original;
 
 	constructor() {
