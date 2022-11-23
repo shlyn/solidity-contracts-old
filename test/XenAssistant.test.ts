@@ -1,32 +1,33 @@
-import { expect } from 'chai'
-import * as artfacts from "../artifacts/contracts/XenAssistant/XenAssistant.sol/XENCryptoMiniProxy.json";
-import { provider } from '../utils/test'
-import { DeployedContractAddress } from '../config'
+import { expect, assert } from 'chai'
+import * as artfacts from "../artifacts/contracts/XenAssistant/XenAssistant.sol/XenAssistant.json"
+import { provider, wallet } from '../utils/test'
+import { DeployedContractAddress, TestAccounts } from '../config'
 import { Contract } from 'ethers'
 
-describe("XENCryptoMiniProxy Contract Test on Goerli Network", function() {
-    const XENCrypto = "0xDd68332Fe8099c0CF3619cB3Bb0D8159EF1eCc93"
-    const XenAssistant = "0xAE272C6Ea3FdB317BCA0e83A9CB169f0d0f1073E"
-    let xenCryptoMiniProxy: Contract
+describe("XenAssistant Contract Test on Goerli Network", function() {
+    const otherXenAssistant = "0xF49ef2ceC20e24d989eA410Bc4fA2c3d6c08a2B1"
+    let XenAssistant: Contract
 
     before(function() {
-        xenCryptoMiniProxy = new Contract(DeployedContractAddress.goerli.XenCryptoMiniProxy, artfacts.abi, provider)
+        XenAssistant= new Contract(DeployedContractAddress.goerli.XenAssistant, artfacts.abi, provider)
     })
 
     describe("Props Check", function() {
-        it("Should return correct XENCrypto address", async function() {
-            const value = await xenCryptoMiniProxy._XENCrypto()
-            expect(value).to.equal(XENCrypto);
+        it("Should be 0 when a new EOA", async function() {
+            const countRank = await XenAssistant.countClaimRank(TestAccounts[1].Account)
+            const countMint = await XenAssistant.countClaimMint(TestAccounts[1].Account)
+            expect(countRank.toString()).to.equal("0");
+            expect(countMint.toString()).to.equal("0");
         })
 
-        it("Should return correct XenAssistant address", async function() {
-            const value = await xenCryptoMiniProxy._XenAssistant()
-            expect(value).to.equal(XenAssistant);
+        it("Should return correct countClaimRank", async function() {
+            const count = await XenAssistant.countClaimRank(wallet.address)
+            expect(count.toNumber()).to.equal(1);
         })
 
-        // it("Should throw a error", async function() {
-        //     const xenCryptoMiniProxy = new ethers.Contract(DeployedContractAddress.goerli.XenCryptoMiniProxy, artfacts.abi, provider)
-        //     expect(() => xenCryptoMiniProxy._original()).rejected("")
-        // })
+        it("Should revered unauthorized", async function() {
+            const assistant= new Contract(otherXenAssistant, artfacts.abi, provider)
+            expect(await assistant.connect(wallet).batchMint(1, 1)).throw(/.*/)
+        })
     })
 })
