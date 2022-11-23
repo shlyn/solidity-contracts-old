@@ -27,6 +27,13 @@ export const DeployedContractAddress = {
         DateTime: "",
         Quotes: "",
         XENFT: ""
+    },
+    OKExMainnet: {
+        // rx => robotxen
+        rxTransparentUpgradeableProxy: "0x97FAaB98f1A9E5C803C43a6293759FcC7eD000b9",
+        rxAutomation: "0x198cf9256A50646AA6D29308F25ef648Dbe416Eb",
+        rxFactory: "0x8277AF4190DC617F46CF91054485688B142a5eD2",
+        XENCrypto: "0x1cC4D981e897A3D2E7785093A648c0a75fAd0453"
     }
 }
 
