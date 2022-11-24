@@ -3,6 +3,7 @@ pragma solidity 0.8.17;
 // File contracts/protocols/automations/AutomationRobot.sol
 
 import "./AutomationStorage.sol";
+import "./transferHelper.sol";
 
 /**
  * @title AutomationRobot

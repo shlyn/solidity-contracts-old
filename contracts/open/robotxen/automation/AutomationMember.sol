@@ -145,14 +145,11 @@ contract AutomationMember is AutomationStorage, transferHelper {
         require(info.claimId == 0, "claim info has been set");
 
         require(
-            claimTasks[msg.sender].length -
-                stoppedClaimTasks[msg.sender].length <
-                taskCountPerMember,
+            claimTasks[msg.sender].length - stoppedClaimTasks[msg.sender].length < taskCountPerMember,
             "claim task count exceeds limit"
         );
 
-        uint256 maxGasConsumedPerBatchClaim = maxGasPrice *
-            GAS_USED_PER_BATCH_CLAIM;
+        uint256 maxGasConsumedPerBatchClaim = maxGasPrice * GAS_USED_PER_BATCH_CLAIM;
         require(msg.value >= maxGasConsumedPerBatchClaim, "insufficient value");
 
         uint256 claimId = ++globalClaimIndex;

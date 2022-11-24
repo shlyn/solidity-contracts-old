@@ -3,7 +3,7 @@ pragma solidity 0.8.17;
 
 import "./AutomationConfig.sol";
 import "./AutomationMember.sol";
-import "./AutomationMember.sol";
+import "./AutomationRobot.sol";
 
 // File contracts/protocols/Automation.sol
 contract Automation is AutomationConfig, AutomationMember, AutomationRobot {
@@ -18,7 +18,7 @@ contract Automation is AutomationConfig, AutomationMember, AutomationRobot {
         __Ownable_init();
 
         factory = _factory;
-        minGasPrice = 100000000;
+        minGasPrice = 100_000_000;
         taskCountPerMember = 5;
     }
 }

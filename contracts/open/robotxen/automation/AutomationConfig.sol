@@ -3,6 +3,8 @@ pragma solidity 0.8.17;
 // File contracts/protocols/automations/AutomationConfig.sol
 
 import "./OwnableUpgradeable.sol";
+import "./AutomationStorage.sol";
+import "./transferHelper.sol";
 
 contract AutomationConfig is OwnableUpgradeable, AutomationStorage, transferHelper {
     /**

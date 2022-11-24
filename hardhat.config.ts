@@ -3,14 +3,24 @@ import "@nomicfoundation/hardhat-toolbox";
 import * as dotenv from "dotenv";
 
 dotenv.config()
-
+/**
+ *    blockGasLimit: DEFAULT_BLOCK_GAS_LIMIT,
+      gas: DEFAULT_BLOCK_GAS_LIMIT,
+      gasPrice: 8000000000,
+      chainId: 56,
+      throwOnTransactionFailures: true,
+      throwOnCallFailures: true,
+      accounts: 
+      forking: mainnetFork 
+ */
 const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
   networks: {
     hardhat: {
-      // forking: {
-      //   url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.API_KEY_ALCHEMY}`
-      // },
+      forking: {
+        url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.API_KEY_ALCHEMY}`,
+        blockNumber: 21577481
+      },
       allowUnlimitedContractSize: true
     },
     dashboard: {
