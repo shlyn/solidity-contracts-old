@@ -30,9 +30,10 @@ export const DeployedContractAddress = {
     },
     OKExMainnet: {
         // rx => robotxen
-        rxTransparentUpgradeableProxy: "0x97FAaB98f1A9E5C803C43a6293759FcC7eD000b9",
-        rxAutomation: "0x198cf9256A50646AA6D29308F25ef648Dbe416Eb",
+        rxMinter: "0x7f6FDa0114f3AdAF5aC338EDA2B5762b5973E445",
         rxFactory: "0x8277AF4190DC617F46CF91054485688B142a5eD2",
+        rxAutomation: "0x198cf9256A50646AA6D29308F25ef648Dbe416Eb",// v1 2022/11/17 12:02:06 || 0x45A9f5df1a8Dd3ce5F0F87B8C960c11167f60Ca0 v2 022/11/23 15:15:16
+        rxTransparentUpgradeableProxy: "0x97FAaB98f1A9E5C803C43a6293759FcC7eD000b9",
         XENCrypto: "0x1cC4D981e897A3D2E7785093A648c0a75fAd0453"
     }
 }
